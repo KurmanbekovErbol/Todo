@@ -30,6 +30,7 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({'phone_number': 'Некорректный номер телефона. Попробуйте ещё раз'})
         return attrs
     
+    
     def create(self, values):
         user = Users.objects.create(
             username=values['username'],
