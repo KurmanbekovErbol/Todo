@@ -26,10 +26,9 @@ class RegisterUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError({"password": 'Пароль должен быть не менее 8 символов'})
         if '+996' not in attrs['phone_number']:
             raise serializers.ValidationError({'phone_number': 'Номер телефона должен быть в формате +996ХХХХХХХХХ'})
-        if len(attrs['phone_number']) < 13:
+        if len(attrs['phone_number']) != 13:
             raise serializers.ValidationError({'phone_number': 'Некорректный номер телефона. Попробуйте ещё раз'})
         return attrs
-    
     
     def create(self, values):
         user = Users.objects.create(
