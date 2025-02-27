@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.users.models import Users
+import re
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,12 +23,24 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError({'confirm_password': 'Пароли отличаются'})
+        
         if len(attrs['password']) < 8:
             raise serializers.ValidationError({"password": 'Пароль должен быть не менее 8 символов'})
-        if '+996' not in attrs['phone_number']:
-            raise serializers.ValidationError({'phone_number': 'Номер телефона должен быть в формате +996ХХХХХХХХХ'})
-        if len(attrs['phone_number']) != 13:
-            raise serializers.ValidationError({'phone_number': 'Некорректный номер телефона. Попробуйте ещё раз'})
+        
+        # Очистка номера от пробелов
+        phone_number = attrs['phone_number'].replace(" ", "").strip()
+
+        # Проверка начала номера
+        if not phone_number.startswith('+996'):
+            raise serializers.ValidationError({'phone_number': 'Номер должен начинаться с +996'})
+
+        # Регулярное выражение для проверки формата номера (+996XXXXXXXXX)
+        phone_pattern = r'^\+996\d{9}$'
+        if not re.fullmatch(phone_pattern, phone_number):
+            raise serializers.ValidationError({'phone_number': 'Некорректный номер. Формат: +996XXXXXXXXX'})
+
+        # Обновляем номер телефона в атрибутах
+        attrs['phone_number'] = phone_number
         return attrs
     
     def create(self, values):
