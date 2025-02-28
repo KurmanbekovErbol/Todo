@@ -5,7 +5,7 @@ from apps.utils import get_todo_upload_path
 
 # Create your models here.
 
-class Todos(models.Model):
+class Todo(models.Model):
     title = models.CharField(
         max_length=255,
         verbose_name="Название",
