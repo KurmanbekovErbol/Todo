@@ -4,7 +4,7 @@ from rest_framework.viewsets import GenericViewSet
 from apps.todos.models import Todo
 from apps.todos.serializer import TodoSerializer
 
-class UserMixins(GenericViewSet,
+class TodoMixins(GenericViewSet,
                  mixins.ListModelMixin,
                  mixins.CreateModelMixin,
                  mixins.DestroyModelMixin,
