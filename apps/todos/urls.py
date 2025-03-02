@@ -1,10 +1,8 @@
-from django.urls import path
 from rest_framework.routers import DefaultRouter
-
-from apps.todos.views import UserMixins
+from apps.todos.views import TodoMixins
 
 router = DefaultRouter()
-router.register('todo', UserMixins, basename='todos')
+router.register(r'todo', TodoMixins, basename='todos')
 
 
 urlpatterns = router.urls
