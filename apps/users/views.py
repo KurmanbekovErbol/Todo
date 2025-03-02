@@ -1,10 +1,10 @@
 from rest_framework import mixins
 from rest_framework.viewsets import GenericViewSet
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.users.models import Users
 from apps.users.serializer import UserSerializer, RegisterUserSerializer
-from rest_framework.filters import SearchFilter, OrderingFilter
-from django_filters.rest_framework import DjangoFilterBackend
 
 class UserMixins(GenericViewSet,
                  mixins.ListModelMixin,
