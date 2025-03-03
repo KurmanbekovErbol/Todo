@@ -10,4 +10,5 @@ class TodoAdmin(admin.ModelAdmin):
     list_filter = ('is_completed', 'created_at')
     ordering = ('created_at',)
 
+
 admin.site.register(Todo, TodoAdmin)
