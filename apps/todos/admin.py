@@ -1,7 +1,13 @@
 from django.contrib import admin
 from apps.todos.models import Todo
+from apps.todos.forms import TodoForm
 # Register your models here.
 
-@admin.register(Todo)
 class TodoAdmin(admin.ModelAdmin):
-    list_display = ('title', 'description', 'is_completed', 'created_at', 'image')
+    form = TodoForm
+    list_display = ('title', 'is_completed', 'created_at')
+    search_fields = ('title', 'description')
+    list_filter = ('is_completed', 'created_at')
+    ordering = ('created_at',)
+
+admin.site.register(Todo, TodoAdmin)
