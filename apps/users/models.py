@@ -14,6 +14,7 @@ class Users(AbstractUser):
         verbose_name="Возраст",
         blank=True, null=True
     )
+    
     def __str__(self):
         return self.username
     
