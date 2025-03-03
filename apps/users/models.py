@@ -11,7 +11,8 @@ class Users(AbstractUser):
         verbose_name="Дата регистрации"
     )
     age = models.IntegerField(
-        verbose_name="Возраст"
+        verbose_name="Возраст",
+        blank=True, null=True
     )
     def __str__(self):
         return self.username
